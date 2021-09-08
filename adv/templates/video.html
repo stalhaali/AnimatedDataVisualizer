@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+        {{ header|safe }}
+        <form method ="POST" action="">   
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+        <h3> Embed this into your website:</h3>
+        <div class="col-8 formbox1">
+            {{ header }}
+        </div> 
+        
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="col-8 formbox">
+    <div>
+        <h1 class = "border-bottom" style="text-align: center;" >Choose which type of Graph you would like to create?</h1>
+        <div class="row">
+            <div class="col-3">
+                <a class="btn btn-primary fuller" href="{{ url_for('create', graph_type='bar') }}" role="button">Bar</a>
+                <img src="https://www.amcharts.com/wp-content/uploads/2020/02/demo_15121_none-4.png" alt="bar" width="100%" height="80%">
+    
+            </div>
+            <div class="col-3">
+                <a class="btn btn-primary fuller" href="{{ url_for('create', graph_type='line') }}" role="button">Line</a>
+                <img src="https://miro.medium.com/max/481/1*zhXyt_vc04KTPHLCU2Yf8Q.png" alt="line" width="100%" height="80%">
+            </div>
+            <div class="col-3">
+                <a class="btn btn-primary fuller" href="{{ url_for('create', graph_type='scatter') }}" role="button">Scatter</a>
+                <img src="https://wcs.smartdraw.com/chart/img/basic-bar-graph.png?bn=15100111801" alt="bar" width="100%" height="80%">
+            </div>
+            <div class="col-3">
+                <a class="btn btn-primary fuller" href="{{ url_for('create', graph_type='pie') }}" role="button">Pie</a>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/English_dialects1997.svg/1200px-English_dialects1997.svg.png" alt="bar" width="100%" height="80%">
+            </div>
+        </div>
+       </body>
+    </div>
+</div>
+{% endblock %}
+<h1>{{ current_user.username }}</h1>

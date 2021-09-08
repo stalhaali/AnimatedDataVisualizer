@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block pro %}
+active
+{% endblock pro %}
+
+{% block content %}
+<div class="col-8 formbox">
+    <div style="position: relative; text-align: center;">
+        <h1>Start Creating!</h1>
+        <a class="btn btn-primary" href="{{ url_for('choose') }}" role="button">Create Graph</a>
+        
+    </body>
+    </div>
+</div>
+{% endblock %}
+
+{% block content2 %}
+    <h1>{{ current_user.username }} here are all the graphs you have decided to save: </h1>
+    {% if number == 0 %}
+        <h1> No videos found in database... </h1>                   
+    {% else %}
+        {% for video in videos %}
+            {{ video.htmlcode|safe }}
+            <div>  
+                <a class="btn btn-primary fuller" href="{{ url_for('delete', vid_id=video.id) }}" role="button">Advanced Settings</a>
+            </div>
+            <hr/>
+        {% endfor %}         
+    {% endif %}
+{% endblock %}
+<h1>{{ current_user.username }}</h1>
+<small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small> 

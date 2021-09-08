@@ -1,0 +1,68 @@
+.fuller {
+    width: 100%
+}
+
+.formbox {
+    margin-top: 10px;
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.formbox1 {
+    height: 100px;
+    width: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+    margin-top: 10px;
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.news {
+    margin-top: 10px;
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.fit-picture {
+    max-width:100%;
+    max-height:100%;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+
+.mycontainer {
+    position: relative;
+  }
+  
+  .mycontainer .homebut {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 18px 32px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  

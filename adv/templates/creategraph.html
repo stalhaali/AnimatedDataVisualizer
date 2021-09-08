@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% if header == 'bar' %}
+        <div class="col-8 formbox">
+            <h1>{{ header }} chart</h1>
+            <form method ="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Choose and Create</legend>
+                    <div class="form-group row top-buffer">
+                        {{ form.spreadsheet.label()}}
+                        {{ form.spreadsheet(class="form-control-file") }}
+                        {% if form.spreadsheet.errors %}
+                            {% for error in form.spreadsheet.errors %}
+                                <span class="text-danger">{{ error }}</span></br>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.title.label(class="form-control-label") }}
+                        {% if form.title.errors %}
+                            {{ form.title(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.title.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.title(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.bars_visible.label(class="form-control-label") }}
+                        {{ form.bars_visible(class="form-control form-control-lg") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.sort.label(class="form-control-label") }}
+                        {{ form.sort(class="form-control form-control-lg") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.orientation.label(class="form-control-label") }}
+                        {{ form.orientation(class="form-control form-control-lg") }}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+    {% else %}
+    <div class="col-8 formbox">
+        <h1>{{ header }} chart</h1>
+        <form method ="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Choose and Create</legend>
+                <div class="form-group row top-buffer">
+                    {{ form.spreadsheet.label()}}
+                    {{ form.spreadsheet(class="form-control-file") }}
+                    {% if form.spreadsheet.errors %}
+                        {% for error in form.spreadsheet.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.title.label(class="form-control-label") }}
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group" onclick="window.open('https://i.pinimg.com/originals/43/77/3d/43773d9c031b8e74c424a7f98cc01bbb.gif','_blank')")>
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+    
+    {% endif %}
+{% endblock content %}

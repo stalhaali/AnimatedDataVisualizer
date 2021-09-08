@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+        {{ video|safe }}
+        <form method ="POST" action="">   
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info fuller") }}
+            </div>
+        </form>
+        <h3>Html Code to Embed this into Your Website:</h3>
+        <div class="col-8 formbox1">
+            {{ video }}
+        </div> 
+        
+{% endblock content %}

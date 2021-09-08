@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+        {% if title %}
+            <title>ADV - {{ title }}</title>
+        {% else %}
+            <title>ADV</title>
+        {% endif %}
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <a class="navbar-brand mb-0 h1" href="{{ url_for('home') }}">
+                        <img src="https://images.squarespace-cdn.com/content/v1/5aff9529b10598f317b4db49/1527119190506-K6M6689W2EH5Q3PPT6TA/bookkeeping-tight-ship-icon-1.gif" alt="" width="30" height="24">
+                        Animated Data Visualizer
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav ms-auto">
+                          <a class="nav-link {% block features %}{% endblock %}" aria-current="page" href="{{ url_for('features') }}">Features</a>
+                          <a class="nav-link {% block examples %}{% endblock %}" aria-current="page" href="{{ url_for('home') }}">Examples</a>
+                          {% if current_user.is_authenticated %}
+                            <a class="nav-link {% block pro %}{% endblock %}" aria-current="page" href="{{ url_for('profile') }}">Profile</a>
+                          {% else %}
+                            <a class="nav-link {% block reg %}{% endblock %}" aria-current="page" href="{{ url_for('register') }}">Sign up</a>
+                          {% endif %}
+
+                        
+                        
+                        </div>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav ms-auto">
+                          <a class="nav-link {% block con %}{% endblock %}" aria-current="page" href="{{ url_for('contact') }}">Contact</a>
+                          <a class="nav-link {% block about %}{% endblock %}" aria-current="page" href="{{ url_for('home') }}">About us</a>
+                          {% if current_user.is_authenticated %}
+                            <a class="nav-link" aria-current="page" href="{{ url_for('logout') }}">Log Out</a>
+                          {% else %}
+                            <a class="nav-link {% block login %}{% endblock %}" aria-current="page" href="{{ url_for('login') }}">Log in</a>
+                          {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        {% if title == 'home'%}
+        <div class="container-fluid">           
+        {% else %}
+        <div class="container">
+        {% endif %}
+            <div class="row">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% if title == 'home' %}
+                <div class="mycontainer">
+                    <img src="https://media2.giphy.com/media/3oKIPEqDGUULpEU0aQ/giphy.gif?cid=790b76113f2923ad8a4a28279723a9b118e281ac79d14acd&rid=giphy.gif&ct=g" alt="bar" width="100%" height="100%">
+                    {% if current_user.is_authenticated %}
+                    <a class="btn btn-primary homebut" href="{{ url_for('choose') }}" role="button">Get Started For Free</a>        
+                    {% else %}
+                    <a class="btn btn-primary homebut" href="{{ url_for('register') }}" role="button">Get Started For Free</a>
+                    {% endif %}
+                </div>
+                {% else %}
+                    {% block content %}{% endblock %}
+                {% endif %}
+                
+                <div class="col-1">
+                </div>
+                    {% if title == 'video' %}
+
+                    {% elif title == 'delete' %}
+
+                    {% elif title == 'home' %}
+                    
+                    {% elif current_user.is_authenticated %}
+                    <div class="col-3 news">
+                        <legend class="border-bottom mb-4">{{ current_user.username }}</legend>
+                        <div class="col-12"> 
+                            Date Joined: {{ current_user.date_created.strftime('%Y-%m-%d')}}
+                        </div>
+                        <div class="col-12 border-bottom"> 
+                            Total Graphs Created: {{ current_user.graphs_created }}
+                        </div>                                                         
+                        <div class="col-12"> 
+                            <a class="btn btn-primary" href="{{ url_for('profile') }}" role="button">Visit Profile</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col-3 news">
+                        <legend class="border-bottom mb-4">Latest News</legend>
+                        <div class="col-3"> 
+                            Sep 10:
+                        </div>
+                        <div class="col-12"> 
+                            <p>Our website will be going under construction, Sep 10-20</p>
+                        </div>
+                        <div class="col-3"> 
+                            Sep 1:
+                        </div>
+                        <div class="col-12"> 
+                            <p>We've officially hit 1000 users!</p>
+                        </div> 
+                        <div class="col-3"> 
+                            Aug 14:
+                        </div>
+                        <div class="col-12"> 
+                            <p>Official Website Launch!</p>
+                        </div>  
+                    </div>                        
+                    {% endif %}
+                
+            </div>
+            <div class="row">
+                {% block content2 %}{% endblock %}
+            </div>
+        </div>
+
+        <!-- Optional JavaScript; choose one of the two! -->
+
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        -->
+    </body>
+</html>

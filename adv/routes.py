@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, abort
 from adv import app, db, bcrypt, mail
 from adv.forms import RegistrationForm, LoginForm, CreateGraphBarForm, CreateGraphNonBarForm, DeleteGraphForm, VideoForm, ContactForm
-from adv.models import User, Post, Video
+from adv.models import User, Video
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 from adv.Data_Visualizer import create_bar
@@ -14,6 +14,9 @@ import cv2
 
 #from adv.data_viz_2 import create_bar1
 class DataStore():
+    """Classed used as a data storage as a means for transfering
+    data between routes
+    """
     video =  "<h1>No Video Created Yet!</h1>"#' <video width="320" height="240" controls> <source src="movi1e.mp4" type="video/mp4"> <source src="black.ogg" type="video/ogg"> Your browser does not support the video tag. </video>'
 
 
@@ -22,11 +25,18 @@ data = DataStore()
 @app.route("/")
 @app.route("/home")
 def home():
+    """renders home page
+    """
     return render_template("layout.html", title="home")
 
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    """Renders register page, and takes care of backend 
+    operations such as saving information to database,
+    hashing the password before saving it, confirming if
+    password and confirm password match...etc
+    """
     if current_user.is_authenticated:
         flash(f'You are already logged in!', 'danger')
         return redirect(url_for('home'))
@@ -43,6 +53,10 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    """Renders login page, and takes care of backend 
+    operations such confirming if user has not already
+    logged in and if the password is correct.
+    """
     if current_user.is_authenticated:
         flash(f'You are already logged in!', 'danger')
         return redirect(url_for('home'))
@@ -59,23 +73,36 @@ def login():
 
 @app.route("/logout")
 def logout():
+    """Route to log out user
+    """
     logout_user()
     return redirect(url_for('home'))
 
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
 def profile():
+    """route to users profile page, where the user's
+    saved videos are located
+    """
     videos = Video.query.filter_by(author = current_user).all()
     return render_template('profile.html', title='Profile', videos=videos, number = len(videos))
 
 @app.route("/choose")
 @login_required
 def choose():
+    """Renders page for choosing type of graph
+    """
     return render_template('choose.html', title='choose')
 
 @app.route("/create/<graph_type>", methods=['GET', 'POST'])
 @login_required
 def create(graph_type):
+    """Renders page for creating a graph
+    and creates a graph based on user choice
+
+    :param graph_type: the type of graph
+    :type graph_type: string
+    """
     all_types = ['bar', 'line', 'scatter', 'pie']
     if graph_type not in all_types:
         abort(403)
@@ -114,6 +141,9 @@ def create(graph_type):
 @app.route("/video", methods=['GET', 'POST'])
 @login_required
 def video():
+    """page to render graphs video after being created.
+    Saves video if user chooses to
+    """
     form = VideoForm()
     if form.validate_on_submit():
         if len(data.video) == 30:
@@ -132,6 +162,11 @@ def video():
 
 @app.route("/delete/<int:vid_id>", methods=['GET', 'POST'])
 def delete(vid_id):
+    """Page used to delete a specific video (specified by vid_id)
+
+    :param vid_id: id of video to be deleted
+    :type vid_id: int
+    """
     form = DeleteGraphForm()
     video = Video.query.get_or_404(vid_id)
     if video.author != current_user:
@@ -144,6 +179,8 @@ def delete(vid_id):
 
 @app.route("/contact", methods=['GET', 'POST'])
 def contact():
+    """Page used to contact creators
+    """
     form = ContactForm()
     if form.validate_on_submit():
         msg = Message('Fan Mail From ' + form.name.data
@@ -154,55 +191,6 @@ def contact():
     return render_template('contact.html', title='Contact', form=form)
 
 
-@app.route("/features", methods=['GET', 'POST'])
+@app.route("/features")
 def features():
-    if request.method == "POST":
-        data_url = request.form["nm"]
-        """
-        response = urllib.request.urlopen(data_url)
-        with open('image.jpg', 'wb') as f:
-            f.write(response.file.read())
-            img = cv2.imread('image.jpg')
-            cv2.imshow('bob', img)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
-        """
-        offset = data_url.index(',')+1
-        img_bytes = base64.b64decode(data_url[offset:])
-        img = Image.open(BytesIO(img_bytes))
-        img  = np.array(img)
-        differentiate(img)
-        #cv2.imshow('bob', img)
-        #cv2.waitKey(0)
-        #cv2.destroyAllWindows()
-        flash('Message has been sent', 'success')
-        return render_template('features.html', title='features')
-    else:
-        return render_template('features.html', title='features')
-
-
-def differentiate(img):
-    grayscaled = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(grayscaled, (7,7), 1)
-    #canny = cv2.Canny(blur, 50, 50)
-    thresh = cv2.threshold(blur, 110 ,255, cv2.THRESH_BINARY_INV)[1]
-    img1 = img.copy()
-    all_pics = []
-
-    contours, Hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    i = 0
-    for cnt in contours:
-            i += 1
-            #cv2.drawContours(img1, cnt, -1, (255, 0, 0), 3)
-            peri = cv2.arcLength(cnt, True)
-            approx = cv2.approxPolyDP(cnt, 0.02*peri, True)
-            x, y, w, h = cv2.boundingRect(approx)
-            bob = thresh [y:y+h, x:x+w]
-            all_pics.append((x, bob))
-            cv2.rectangle(img1, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            new_img = cv2.resize(bob, (28, 28))
-            #cv2.imwrite("fruit" +str(i)+".jpg", new_img)
-
-    cv2.imshow("title", img1)
-    cv2.imshow("title2", thresh)
-    cv2.waitKey(0)
+    return render_template('features.html', title='features')

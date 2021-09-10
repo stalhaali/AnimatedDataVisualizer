@@ -114,7 +114,7 @@ def create(graph_type):
         file = form.spreadsheet.data
         title = form.title.data
         if graph_type == 'bar':
-            if form.sort.data == 'Highest':
+            if form.sort.data == 'Ascending':
                 sort_by = 'asc'
             else:
                 sort_by = 'desc'
@@ -123,11 +123,11 @@ def create(graph_type):
                 orien = 'h'
             else:
                 orien = 'v'
-            #data.video = create_bar1(file, graph_type, title, sort_by, bars, orien)
+            data.video = create_bar(file, graph_type, title, sort_by, bars, orien)
         else:
-            #data.video = create_bar1(file, graph_type, title)
+            data.video = create_bar(file, graph_type, title)
             """do this"""
-        data.video = create_bar(file)
+
         if not isinstance(data.video, str):
             data.video = data.video.data
         #data.video = create_bar(file, graph_type, 'hi')

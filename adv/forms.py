@@ -94,7 +94,7 @@ class CreateGraphBarForm(FlaskForm):
         submit button used to submit user bar graph information
     """
     spreadsheet = FileField("Upload Data (Excel Document)", validators=[FileAllowed(['csv']), DataRequired()])
-    dropdown_list = ['Highest', 'Lowest'] # You can get this from your model
+    dropdown_list = ['Ascending', 'Descending'] # You can get this from your model
     dropdown_list2= ['Horizontal', 'Vertical']
     dropdown_list3= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     title = StringField('Title', validators=[DataRequired()])

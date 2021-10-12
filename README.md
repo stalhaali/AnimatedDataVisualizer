@@ -37,3 +37,5 @@ Now you can run the app :)
 ```bash
 python run.py
 ```
+
+NOTE: This website is still a work in progress and in no way represents a finished product.

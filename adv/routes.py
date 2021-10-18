@@ -1,15 +1,11 @@
 from flask import render_template, url_for, flash, redirect, request, abort
 from adv import app, db, bcrypt, mail
-from adv.forms import RegistrationForm, LoginForm, CreateGraphBarForm, CreateGraphNonBarForm, DeleteGraphForm, VideoForm, ContactForm
+from adv.forms import RegistrationForm, LoginForm, CreateGraphBarForm, CreateGraphNonBarForm, DeleteGraphForm, VideoForm, ContactForm, ScrapeForm
 from adv.models import User, Video
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 from adv.Data_Visualizer import create_bar
-import base64
-from PIL import Image
-from io import StringIO, BytesIO
-import numpy as np
-import cv2
+
 
 
 #from adv.data_viz_2 import create_bar1
@@ -191,6 +187,29 @@ def contact():
     return render_template('contact.html', title='Contact', form=form)
 
 
-@app.route("/features")
-def features():
-    return render_template('features.html', title='features')
+@app.route("/instructions")
+def instructions():
+    """Page containing Instructions on file format
+    """
+    return render_template('instructions.html', title='Instructions')
+
+@app.route("/about")
+def about():
+    """About Page
+    """
+    return render_template('about.html', title='About Us')
+
+@app.route("/scrape", methods=['GET', 'POST'])
+def scrape():
+    """Page that helps user web scrape data from other wesbites
+    """
+    form = ScrapeForm()
+    if form.validate_on_submit():
+        return redirect(url_for('download'))
+    return render_template('scrape.html', title='Scrape Data', form = form)
+
+
+@app.route("/download", methods=['GET', 'POST'])
+def download():
+    return render_template('download.html', title='Download')
+

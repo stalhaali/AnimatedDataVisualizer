@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="col-8 formbox">
+        <form method ="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Scrape Your Own Data!</legend>
+                <div class="alert alert-dark" role="alert">
+                    An empty file will be created if any errors occur!
+                </div>
+                <div class="form-group">
+                    {{ form.url.label(class="form-control-label") }}
+                    {% if form.url.errors %}
+                        {{ form.url(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.url.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.url(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.tablenum.label(class="form-control-label") }}
+                    {% if form.tablenum.errors %}
+                        {{ form.tablenum(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.tablenum.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.tablenum(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.download(class="btn btn-outline-info") }}
+            </div>  
+        </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Need An Account? <a class="ml-2" href="{{ url_for('register') }}">Sign Up</a>
+        </small>
+    </div>
+</div>
+{% endblock content %}
+{% block examples %}
+active
+{% endblock examples %}

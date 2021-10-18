@@ -28,8 +28,8 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ms-auto">
-                          <a class="nav-link {% block features %}{% endblock %}" aria-current="page" href="{{ url_for('features') }}">Features</a>
-                          <a class="nav-link {% block examples %}{% endblock %}" aria-current="page" href="{{ url_for('home') }}">Examples</a>
+                          <a class="nav-link {% block features %}{% endblock %}" aria-current="page" href="{{ url_for('instructions') }}">Instructions</a>
+                          <a class="nav-link {% block examples %}{% endblock %}" aria-current="page" href="{{ url_for('scrape') }}">Scrape Your Own Data</a>
                           {% if current_user.is_authenticated %}
                             <a class="nav-link {% block pro %}{% endblock %}" aria-current="page" href="{{ url_for('profile') }}">Profile</a>
                           {% else %}
@@ -44,7 +44,7 @@
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ms-auto">
                           <a class="nav-link {% block con %}{% endblock %}" aria-current="page" href="{{ url_for('contact') }}">Contact</a>
-                          <a class="nav-link {% block about %}{% endblock %}" aria-current="page" href="{{ url_for('home') }}">About us</a>
+                          <a class="nav-link {% block about %}{% endblock %}" aria-current="page" href="{{ url_for('about') }}">About us</a>
                           {% if current_user.is_authenticated %}
                             <a class="nav-link" aria-current="page" href="{{ url_for('logout') }}">Log Out</a>
                           {% else %}
@@ -108,23 +108,23 @@
                     <div class="col-3 news">
                         <legend class="border-bottom mb-4">Latest News</legend>
                         <div class="col-3"> 
-                            Sep 10:
+                            October:
                         </div>
                         <div class="col-12"> 
-                            <p>Our website will be going under construction, Sep 10-20</p>
+                            <p>Our website will be going under construction, Oct 18-20</p>
                         </div>
                         <div class="col-3"> 
                             Sep 1:
                         </div>
                         <div class="col-12"> 
-                            <p>We've officially hit 1000 users!</p>
+                            <p>Our website will be going under construction, Sep 10-20</p>
                         </div> 
                         <div class="col-3"> 
                             Aug 14:
                         </div>
                         <div class="col-12"> 
                             <p>Official Website Launch!</p>
-                        </div>  
+                        </div>   
                     </div>                        
                     {% endif %}
                 

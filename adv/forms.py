@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from adv.models import User
 
@@ -171,3 +171,23 @@ class ContactForm(FlaskForm):
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Send')
 
+
+class ScrapeForm(FlaskForm):
+    """
+    A class to represent a Flask form for web scraping
+    a website for data
+
+    ...
+
+    Attributes
+    ----------
+    url: StringField
+        field used to store url of data
+    tablenum: IntegerField
+        field used to store the position of the table you want to scrape
+    download: SubmitField
+        takes you to download page
+    """
+    url = StringField('Website Url', validators=[DataRequired()])
+    tablenum = IntegerField('Position of Table On Page (Integer)', validators=[DataRequired()])
+    download = SubmitField('Download Data!')

@@ -32,6 +32,6 @@ def create_bar(doc, kind, title, sort='asc', n_visible=4, orientation='h'):
 
         return html
     except:
-        return "<img src="https://rockcontent.com/wp-content/uploads/2021/02/stage-en-error-1020-1024x682.png" alt="" width="100%" height="504">"
+        return '<img src="https://rockcontent.com/wp-content/uploads/2021/02/stage-en-error-1020-1024x682.png" alt="" width="100%" height="504">'
 
 

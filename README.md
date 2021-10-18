@@ -4,7 +4,7 @@
 
 [Click me](http://animateddataviz.pythonanywhere.com/) 
 
-Note: While using the browser version, only use small datasets as larger ones take a long time to render. If you'd like to use larger datasets then feel free to run the app
+**Note**: While using the browser version, only use small datasets as larger ones take a long time to render (You can use our [test](https://github.com/stalhaali/AnimatedDataVisualizer/blob/main/adv/test.csv) dataset to test the website :)). If you'd like to use larger datasets then feel free to run the app
 on your own machine (see below). Furthermore, This website is still a work in progress and in no way represents a finished product.
 
 # Description
